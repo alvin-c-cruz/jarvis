@@ -7,20 +7,28 @@ from models import Accounts, Purchases, Supplier
 
 
 if __name__ == "__main__":
-    db = sqlite3.connect(os.path.join('instance', 'data.db'))
-    for table in (Purchases, Supplier):
-        obj = table(db=db)
-        try:
-            obj.delete_table
-        except sqlite3.OperationalError:
-            pass
+    if not os.path.isdir('instance'):
+        os.makedirs('instance')
 
+    db = sqlite3.connect(os.path.join('instance', 'data.db'))
     for table in (Accounts, Purchases, Supplier):
         obj = table(db=db)
         try:
+            obj.delete_table
             obj.create_table
         except sqlite3.OperationalError:
             pass
+
+    supplier = Supplier(
+        db=db,
+        supplier_name="CANCELLED"
+    )
+    supplier.save
+
+    account = Accounts(
+        db=db,
+        account_tag="CANCELLED",
+    )
 
     filename = os.path.join('instance', 'uploads', 'purchases.xlsx')
     data = RecordPurchases(db, filename)
