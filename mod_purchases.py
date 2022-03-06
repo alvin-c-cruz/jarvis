@@ -1,6 +1,5 @@
 from openpyxl import load_workbook
 from dataclasses import dataclass
-import os
 
 from models import Accounts, Purchases, Supplier
 
@@ -215,6 +214,7 @@ class RecordPurchases:
                         wt_class=ACCOUNTS[column_head]['wt_class'],
                     )
                     account.save
+                    print(f'Added {account}')
                 else:
                     input(f"Header not in record: {column_head}")
 

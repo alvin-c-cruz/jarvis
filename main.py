@@ -1,9 +1,10 @@
-
+import threading
 import sqlite3
 import os
 
 from mod_purchases import RecordPurchases
-from models import Accounts, Purchases, Supplier
+from mod_petty_cash import RecordPettyCash
+from models import Accounts, Purchases, PettyCash, Supplier
 
 
 if __name__ == "__main__":
@@ -11,7 +12,7 @@ if __name__ == "__main__":
         os.makedirs('instance')
 
     db = sqlite3.connect(os.path.join('instance', 'data.db'))
-    for table in (Accounts, Purchases, Supplier):
+    for table in (Accounts, Purchases, PettyCash, Supplier):
         obj = table(db=db)
         try:
             obj.delete_table
@@ -31,6 +32,10 @@ if __name__ == "__main__":
     )
 
     filename = os.path.join('instance', 'uploads', 'purchases.xlsx')
-    data = RecordPurchases(db, filename)
+    RecordPurchases(db, filename)
+
+    for name in ('pcf 2020.xlsx', ):
+        filename = os.path.join('instance', 'uploads', name)
+        RecordPettyCash(db, filename)
 
     db.close()

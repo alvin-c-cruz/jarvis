@@ -29,8 +29,6 @@ class Purchases(sqliteDataModel):
 @dataclass
 class PettyCash(sqliteDataModel):
     received_date: str = ""
-    rr_number: str = ""
-    po: str = ""
     invoice: str = ""
     particulars: str = ""
     invalid: float = 0.0
