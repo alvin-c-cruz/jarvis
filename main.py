@@ -33,8 +33,8 @@ if __name__ == "__main__":
 
     filename = os.path.join('instance', 'uploads', 'purchases.xlsx')
     RecordPurchases(db, filename)
-
-    for name in ('pcf 2020.xlsx', ):
+    #
+    for name in ('pcf 2017.xlsx', 'pcf 2018.xlsx', 'pcf 2019.xlsx', 'pcf 2020.xlsx'):
         filename = os.path.join('instance', 'uploads', name)
         RecordPettyCash(db, filename)
 

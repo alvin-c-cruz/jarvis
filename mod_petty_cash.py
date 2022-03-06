@@ -53,12 +53,6 @@ ACCOUNTS = {
         "vat_class": "Goods",
         "wt_class": "1%",
     },
-    "CLEANING": {
-        "account_number": "6219",
-        "account_title": "Cleaning Supplies Expense",
-        "vat_class": "Goods",
-        "wt_class": "1%",
-    },
     "PACKAGING": {
         "account_number": "6220",
         "account_title": "Packaging Supplies Expense",
@@ -205,6 +199,7 @@ class RecordPettyCash:
                 header_type = ""
                 print(choices)
                 while header_type not in choices:
+                    print(self.ws.title)
                     print(f"Header not in record: {column_head}")
                     header_type = input("Header type: \n") if column_head not in ACCOUNTS else "1"
 
@@ -297,8 +292,21 @@ class RecordPettyCash:
                if account_tag not in ('Input VAT', 'EWT', 'Petty Cash')]
 
         if tag:
+            tag = tag[0]
+
+            dict_cleaning = {
+                'CLEANING ': 'CLEANING SUPPLIES',
+                'WARES AND UTENSILS': 'UTENSILS / EQUIPMENT',
+                'PACKAGING': 'PACKAGING SUPPLIES',
+                'EMP MEAL': 'EM',
+            }
+
+            if tag in dict_cleaning:
+                tag = dict_cleaning[tag]
+
+            print(tag)
             account_id = self.db.execute('SELECT id FROM tbl_accounts WHERE account_tag=?',
-                                                  (tag[0], )).fetchone()[0]
+                                                  (tag, )).fetchone()[0]
         else:
             account_id = 1
 
