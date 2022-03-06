@@ -1,0 +1,8 @@
+TIN of Withholding Agent TIN: 000568248-0000
+Alphalist Form              : 1604CF
+Taxable Year                : 12/31/2011
+
+LINE NUM       SCHEDULE     ERROR DESCRIPTION
+----------     --------     ------------------------------------------------------------
+0000000000                  No Errors Encountered
+----------     --------     ------------------------------------------------------------
