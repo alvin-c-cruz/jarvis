@@ -27,6 +27,20 @@ class Purchases(sqliteDataModel):
 
 
 @dataclass
+class Expenses(sqliteDataModel):
+    received_date: str = ""
+    invoice: str = ""
+    particulars: str = ""
+    invalid: float = 0.0
+    vat_zero_rated: float = 0.0
+    vat_exempt: float = 0.0
+    vat_12: float = 0.0
+    ewt_rate: float = 0.0
+    supplier_id: int = None
+    account_id: int = None
+
+
+@dataclass
 class PettyCash(sqliteDataModel):
     received_date: str = ""
     invoice: str = ""

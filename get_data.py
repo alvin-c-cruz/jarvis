@@ -4,7 +4,8 @@ import os
 
 from mod_purchases import RecordPurchases
 from mod_petty_cash import RecordPettyCash
-from models import Accounts, Purchases, PettyCash, Supplier
+from mod_expenses import RecordExpenses
+from models import Accounts, Purchases, PettyCash, Expenses, Supplier
 
 
 if __name__ == "__main__":
@@ -12,7 +13,7 @@ if __name__ == "__main__":
         os.makedirs('instance')
 
     db = sqlite3.connect(os.path.join('instance', 'data.db'))
-    for table in (Accounts, Purchases, PettyCash, Supplier):
+    for table in (Accounts, Purchases, PettyCash, Expenses, Supplier):
         obj = table(db=db)
         try:
             obj.delete_table
@@ -33,9 +34,12 @@ if __name__ == "__main__":
 
     filename = os.path.join('instance', 'uploads', 'purchases.xlsx')
     RecordPurchases(db, filename)
-    #
+
     for name in ('pcf 2017.xlsx', 'pcf 2018.xlsx', 'pcf 2019.xlsx', 'pcf 2020.xlsx'):
         filename = os.path.join('instance', 'uploads', name)
         RecordPettyCash(db, filename)
+
+    filename = os.path.join('instance', 'uploads', 'expenses.xlsx')
+    RecordExpenses(db, filename)
 
     db.close()
